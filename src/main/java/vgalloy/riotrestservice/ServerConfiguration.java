@@ -3,6 +3,7 @@ package vgalloy.riotrestservice;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.mongo.embedded.EmbeddedMongoAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
 
 /**
@@ -10,7 +11,7 @@ import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
  *         Created by Vincent Galloy on 13/06/16.
  */
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = {ErrorMvcAutoConfiguration.class, EmbeddedMongoAutoConfiguration.class})
 public class ServerConfiguration {
 
     /**

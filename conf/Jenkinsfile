@@ -1,0 +1,16 @@
+node {
+    stage 'Git fetch'
+    git url: 'https://github.com/vgalloy/riot-service.git'
+
+    stage 'Compile'
+    sh "mvn clean install -DskipTests"
+    
+    stage 'Prepare'
+    sh "ssh vgalloy@tour 'server/service/prepare.sh'"
+    
+    stage 'Copy'
+    sh "scp target/riot-restservice-*.jar vgalloy@tour:server/service"
+    
+    stage 'Start'
+    sh "ssh vgalloy@tour 'server/service/start.sh'"
+}
