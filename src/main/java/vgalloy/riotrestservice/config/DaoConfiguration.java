@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
 import vgalloy.riot.database.mongo.provider.MongoDaoProvider;
 
@@ -20,5 +21,10 @@ public class DaoConfiguration {
     @Bean
     public QueryDao getQueryDao() {
         return MongoDaoProvider.INSTANCE.getQueryDao(databaseUrl);
+    }
+
+    @Bean
+    public RankedStatsDaoImpl getRankedStatsDaoImpl() {
+        return MongoDaoProvider.INSTANCE.getRankedStatsDao(databaseUrl);
     }
 }
