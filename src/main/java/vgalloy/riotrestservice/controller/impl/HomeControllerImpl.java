@@ -20,7 +20,7 @@ public class HomeControllerImpl implements HomeController {
     private String version;
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String getHome() {
         return "Server is running !<p>" +
                 "Version : " + version + "<p>";
