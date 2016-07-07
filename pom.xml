@@ -35,7 +35,9 @@
         <springfox.version>2.5.0</springfox.version>
 
         <!-- Riot project -->
-        <riot-database-mongo.version>1.0.0</riot-database-mongo.version>
+        <riot-api-java.version>2.6.0</riot-api-java.version>
+        <riot-database-mongo.version>1.5.0</riot-database-mongo.version>
+        <riot-daemon-java.version>0.4.0-SNAPSHOT</riot-daemon-java.version>
 
         <!-- Test -->
         <junit.version>4.12</junit.version>
@@ -56,8 +58,18 @@
         <!-- Riot project -->
         <dependency>
             <groupId>vgalloy</groupId>
+            <artifactId>riot-api-java</artifactId>
+            <version>${riot-api-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>vgalloy</groupId>
             <artifactId>riot-database-mongo</artifactId>
             <version>${riot-database-mongo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>vgalloy</groupId>
+            <artifactId>riot-daemon-java</artifactId>
+            <version>${riot-daemon-java.version}</version>
         </dependency>
 
         <!-- Aspect -->

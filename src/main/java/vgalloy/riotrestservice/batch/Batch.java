@@ -17,9 +17,9 @@ public class Batch {
     private QueryDao queryDao;
 
     /**
-     * Update the win rate table every 5 min.
+     * Update the win rate table every 10 min.
      */
-    @Scheduled(fixedDelay = 5 * 60 * 1000) // 5 min
+    @Scheduled(fixedDelay = 10 * 60 * 1000) // 10 min
     public void updateWinRate() {
         queryDao.updateWinRate();
     }
