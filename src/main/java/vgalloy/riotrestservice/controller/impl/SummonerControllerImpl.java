@@ -1,18 +1,21 @@
 package vgalloy.riotrestservice.controller.impl;
 
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
 import vgalloy.riot.api.rest.constant.Region;
-import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
+import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
+import vgalloy.riot.daemon.api.LoaderService;
+import vgalloy.riot.database.mongo.dao.RankedStatsDao;
 import vgalloy.riot.database.mongo.entity.model.RankedStatsEntity;
 import vgalloy.riotrestservice.controller.SummonerController;
-
-import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.core.Response.Status;
-import java.util.Optional;
 
 /**
  * @author Vincent Galloy
@@ -21,8 +24,12 @@ import java.util.Optional;
 @RestController
 public class SummonerControllerImpl implements SummonerController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SummonerControllerImpl.class);
+
     @Autowired
-    private RankedStatsDaoImpl rankedStatsDao;
+    private RankedStatsDao rankedStatsDao;
+    @Autowired
+    private LoaderService loaderService;
 
     @Override
     @RequestMapping(value = "{region}/summoner/{summonerId}", method = RequestMethod.GET)
@@ -31,6 +38,9 @@ public class SummonerControllerImpl implements SummonerController {
         if (rankedStatsEntity.isPresent()) {
             return rankedStatsEntity.get();
         }
-        throw new ClientErrorException(Status.NOT_FOUND);
+        LOGGER.warn("Not found");
+        RankedStatsDto rankedStatsDto = loaderService.loadRankedStat(region, summonerId);
+        System.out.println(rankedStatsDto);
+        return null;
     }
 }
