@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 
 import vgalloy.riot.daemon.api.LoaderService;
+import vgalloy.riot.database.mongo.dao.MatchDetailDao;
 import vgalloy.riot.database.mongo.dao.RankedStatsDao;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
 import vgalloy.riot.database.mongo.provider.MongoDaoProvider;
@@ -30,6 +31,11 @@ public class DaoConfiguration {
     @Bean
     public RankedStatsDao getRankedStatsDaoImpl() {
         return MongoDaoProvider.INSTANCE.getRankedStatsDao(databaseUrl);
+    }
+
+    @Bean
+    public MatchDetailDao getMatchDetailDao() {
+        return MongoDaoProvider.INSTANCE.getMatchDetailDao(databaseUrl);
     }
 
     /**
