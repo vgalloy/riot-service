@@ -18,7 +18,7 @@ import vgalloy.riotrestservice.controller.GameController;
  *         Created by Vincent Galloy on 09/07/16.
  */
 @RestController
-public class GameControllerImpl implements GameController{
+public class GameControllerImpl implements GameController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GameControllerImpl.class);
 

@@ -19,6 +19,8 @@ public class DaoConfiguration {
 
     @Value("${databaseUrl}")
     private String databaseUrl;
+    @Value("${rmiUrl}")
+    private String rmiUrl;
 
     @Bean
     public QueryDao getQueryDao() {
@@ -38,7 +40,7 @@ public class DaoConfiguration {
     @Bean
     public LoaderService getLoadingService() {
         RmiProxyFactoryBean rmiProxyFactoryBean = new RmiProxyFactoryBean();
-        rmiProxyFactoryBean.setServiceUrl("rmi://localhost:5000/LoaderService");
+        rmiProxyFactoryBean.setServiceUrl(rmiUrl);
         rmiProxyFactoryBean.setServiceInterface(LoaderService.class);
         rmiProxyFactoryBean.afterPropertiesSet();
 
