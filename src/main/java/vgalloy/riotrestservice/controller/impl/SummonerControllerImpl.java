@@ -1,5 +1,6 @@
 package vgalloy.riotrestservice.controller.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -11,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import vgalloy.riot.api.rest.constant.Region;
-import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
 import vgalloy.riot.daemon.api.LoaderService;
 import vgalloy.riot.database.mongo.dao.RankedStatsDao;
+import vgalloy.riot.database.mongo.dao.query.QueryDao;
+import vgalloy.riot.database.mongo.dao.query.model.Position;
 import vgalloy.riot.database.mongo.entity.model.RankedStatsEntity;
 import vgalloy.riotrestservice.controller.SummonerController;
 
@@ -27,6 +29,8 @@ public class SummonerControllerImpl implements SummonerController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SummonerControllerImpl.class);
 
     @Autowired
+    private QueryDao queryDao;
+    @Autowired
     private RankedStatsDao rankedStatsDao;
     @Autowired
     private LoaderService loaderService;
@@ -38,9 +42,13 @@ public class SummonerControllerImpl implements SummonerController {
         if (rankedStatsEntity.isPresent()) {
             return rankedStatsEntity.get();
         }
-        LOGGER.warn("Not found");
-        RankedStatsDto rankedStatsDto = loaderService.loadRankedStat(region, summonerId);
-        System.out.println(rankedStatsDto);
-        return null;
+        LOGGER.warn("Use RMI ");
+        return loaderService.loadRankedStat(region, summonerId).orElse(null);
+    }
+
+    @Override
+    @RequestMapping(value = "{region}/summoner/{summonerId}/{championId}", method = RequestMethod.GET)
+    public List<List<Position>> getPosition(@PathVariable Region region, @PathVariable Integer summonerId, @PathVariable Integer championId) {
+        return queryDao.getPosition(summonerId, championId);
     }
 }
