@@ -43,7 +43,7 @@ public class SummonerControllerImpl implements SummonerController {
             return rankedStatsEntity.get();
         }
         LOGGER.warn("Use RMI ");
-        return loaderService.loadRankedStat(region, summonerId).orElse(null);
+        return loaderService.loadRankedStat(region, summonerId);
     }
 
     @Override
